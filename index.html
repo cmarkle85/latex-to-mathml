@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Free LaTeX to mathml conversion utility">
+    <meta name="keywords" content="LaTeX, mathml, conversion, utility, Word">
+    <meta name="author" content="Chris Markle">
+    <title>LaTeX to mathml</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138518195-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-138518195-1');
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript">
+      //
+      //  Use a closure to hide the local variables from the
+      //  global namespace
+      //
+      (function () {
+        var QUEUE = MathJax.Hub.queue;  // shorthand for the queue
+        var math = null;                // the element jax for the math output.
+
+        //
+        //  Get the element jax when MathJax has produced it.
+        //
+        QUEUE.Push(function () {
+          math = MathJax.Hub.getAllJax("MathOutput")[0];
+        });
+
+        //
+        //  The onchange event handler that typesets the
+        //  math entered by the user
+        //
+        window.UpdateMath = function (TeX) {
+
+          QUEUE.Push(["Text",math,"\\displaystyle{"+TeX+"}"]);
+        }
+      })();
+    </script>
+    <!-- Click to Copy Functionality -->
+    <script type="text/javascript">
+        window.to_clip = function(){
+            var el = document.createElement("TEXTAREA");
+            var text = document.getElementsByClassName("MJX_Assistive_MathML")[0].innerHTML.toString();
+            el.value = text;
+            el.id = "mathml_out";
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand("copy");
+            document.body.removeChild(el);
+        }
+    </script>
+    <base target="_blank">
+</head>
+
+<body>
+<h1>
+    LaTeX to MathML Converter
+</h1>
+<div>
+    <h2>
+        Instructions
+    </h2>
+    <ol>
+        <li>Type LaTeX code into the the box provided</li>
+        <li>Click anywhere outside the box and the LaTeX should be rendered to the right of the "Click To Copy" button</li>
+        <li>Click the "Click To Copy" button and the MathML source code will be copied into your clipboard</li>
+    </ol>
+</div>
+<h3>
+    Notes
+</h3>
+<ol>
+    <li>LaTeX math is not sensitive to whitespace.
+        <ul>
+            <li>Feel free to use spaces and linebreaks wherever you like.</li>
+            <li>The textarea is also resizable.</li>
+        </ul>
+    </li>
+    <li>The MathML code copied to your clipboard can be pasted (ctrl+V) into MS Word and it will render correctly.
+        <ul>
+            <li>You may notice some slight differences between the LaTeX and MS Word render. Most likely this results from a lack of curly braces "{}" as in the example provided.</li>
+        </ul>
+    </li>
+</ol>
+<span>LaTeX code:</span><br>
+<textarea id="MathInput" onchange="UpdateMath(this.value)" style="width:6.5in">
+\frac{1}{2}y_2^3=
+\underset{x\in X}{\textrm{argmin}}\left\{\sum_{k=1}^\infty n\right\}
+</textarea>
+<br><br>
+<div>
+    <button type='button' onclick="to_clip()" style="margin-right:1em">Click To Copy:</button>
+    <span id="MathOutput" style="padding-left:1em"> \( {} \) </span>
+</div>
+<br>
+<h3>
+    References:
+</h3>
+<dl>
+    <dt><a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">LaTeX Reference Guide</a></dt>
+    <dd>- Great reference guide from wikibooks on how to use LaTeX.</dd>
+    <dt><a href="https://www.mathjax.org/" >MathJax</a></dt>
+    <dd>- The MathJax API is used to convert LaTeX to MathML.</dd>
+    <dt><a href="https://www.w3.org/Math/">MathML</a></dt>
+    <dd>- This is what is actually copied when you click "Click to Copy".</dd>
+</dl>
+</body>
+
+</html>
+
